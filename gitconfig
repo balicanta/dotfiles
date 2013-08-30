@@ -1,0 +1,13 @@
+[user]
+	name = balicanta
+	email = balicanta@streetvoice.com
+[color]
+    diff = auto
+    status = auto
+    log = auto
+    brancth  = auto
+[alias]
+    st = status
+    ci = commit
+    co = checkout
+    br = branch
