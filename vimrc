@@ -17,13 +17,15 @@ set ruler
 
 set hidden
 set viminfo='1025,f1,%1024
+let mapleader=";"
 
 set tags=tags;/
 
 "status line setting
+
 set laststatus=2
 
-set statusline=%t       "tail of the filename
+"set statusline=%t       "tail of the filename
 
 "Auto indent
 filetype plugin indent on
@@ -70,6 +72,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'bufexplorer.zip'
 Bundle 'groenewege/vim-less'
 Bundle 'lastpos.vim'
+Bundle 'itchyny/lightline.vim'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
 Bundle 'snipmate-snippets'
@@ -78,13 +81,70 @@ Bundle 'flazz/vim-colorschemes'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-powerline'
 Bundle 'Lokaltog/vim-easymotion'
 Bundle 'Rykka/riv.vim'
 Bundle 'nvie/vim-flake8'
-Bundle 'taglist.vim'
+Bundle 'majutsushi/tagbar'
 
 execute pathogen#infect()
 
 "Map Tabularize Plug-in
 nmap <leader>k :Tabularize /=
+
+"Tag bar
+let g:tagbar_left=1
+let g:tagbar_foldlevel =0 
+nmap <F8> :TagbarToggle<CR>
+
+"Lingt line setting 
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'fugitive', 'filename' ] ]
+      \ },
+      \ 'component_function': {
+      \   'fugitive': 'MyFugitive',
+      \   'readonly': 'MyReadonly',
+      \   'modified': 'MyModified',
+      \   'filename': 'MyFilename'
+      \ },
+      \ 'separator': { 'left': '⮀', 'right': '⮂' },
+      \ 'subseparator': { 'left': '⮁', 'right': '⮃' }
+      \ }
+
+function! MyModified()
+  if &filetype == "help"
+    return ""
+  elseif &modified
+    return "+"
+  elseif &modifiable
+    return ""
+  else
+    return ""
+  endif
+endfunction
+
+function! MyReadonly()
+  if &filetype == "help"
+    return ""
+  elseif &readonly
+    return "⭤"
+  else
+    return ""
+  endif
+endfunction
+
+function! MyFugitive()
+  if exists("*fugitive#head")
+    let _ = fugitive#head()
+    return strlen(_) ? '⭠ '._ : ''
+  endif
+  return ''
+endfunction
+
+function! MyFilename()
+  return ('' != MyReadonly() ? MyReadonly() . ' ' : '') .
+       \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
+       \ ('' != MyModified() ? ' ' . MyModified() : '')
+endfunction
