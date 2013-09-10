@@ -14,7 +14,6 @@ set tabstop=4
 set autoindent
 set shortmess=Ia                      " remove splash wording
 set ruler
-
 set hidden
 set viminfo='1025,f1,%1024
 let mapleader=";"
@@ -85,6 +84,7 @@ Bundle 'Lokaltog/vim-easymotion'
 Bundle 'Rykka/riv.vim'
 Bundle 'nvie/vim-flake8'
 Bundle 'majutsushi/tagbar'
+Bundle 'scrooloose/syntastic'
 
 execute pathogen#infect()
 
@@ -148,3 +148,13 @@ function! MyFilename()
        \ ('' != expand('%:t') ? expand('%:t') : '[No Name]') .
        \ ('' != MyModified() ? ' ' . MyModified() : '')
 endfunction
+
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+  else
+    set relativenumber
+  endif
+endfunc
+
+nnoremap <C-n> :call NumberToggle()<cr> 
