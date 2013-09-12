@@ -21,10 +21,8 @@ let mapleader=";"
 set tags=tags;/
 
 "status line setting
-
 set laststatus=2
 
-"set statusline=%t       "tail of the filename
 
 "Auto indent
 filetype plugin indent on
@@ -85,6 +83,7 @@ Bundle 'Rykka/riv.vim'
 Bundle 'nvie/vim-flake8'
 Bundle 'majutsushi/tagbar'
 Bundle 'scrooloose/syntastic'
+Bundle 'vim-scripts/grep.vim'
 
 execute pathogen#infect()
 
@@ -96,9 +95,17 @@ let g:tagbar_left=1
 let g:tagbar_foldlevel =0 
 nmap <F8> :TagbarToggle<CR>
 
+"Color scheme Setting 
+colorscheme jelleybeans
+
+"Switch Past mode  with F2
+set pastetoggle=<F2>
+
+nnoremap <silent> <F3> :Rgrep<CR>
+
 "Lingt line setting 
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'default',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'fugitive', 'filename' ] ]
@@ -158,3 +165,6 @@ function! NumberToggle()
 endfunc
 
 nnoremap <C-n> :call NumberToggle()<cr> 
+
+"autocmd InsertEnter * :set number
+"autocmd InsertLeave * :set relativenumber
