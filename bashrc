@@ -86,6 +86,7 @@ alias ls='ls --hide=*.pyc --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+alias cl='clear'
 alias home='cd /home/vagrant/workspace/streetvoice'
 
 # Add an "alert" alias for long running commands.  Use like so:

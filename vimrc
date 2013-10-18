@@ -23,6 +23,8 @@ set tags=tags;/
 "status line setting
 set laststatus=2
 
+" Enter Vim , default is relative number
+set relativenumber
 
 "Auto indent
 filetype plugin indent on
@@ -76,6 +78,7 @@ Bundle 'snipmate-snippets'
 Bundle 'garbas/vim-snipmate'
 Bundle 'flazz/vim-colorschemes'
 Bundle 'kchmck/vim-coffee-script'
+Bundle 'airblade/vim-gitgutter'
 Bundle 'kien/ctrlp.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-easymotion'
@@ -166,5 +169,19 @@ endfunc
 
 nnoremap <C-n> :call NumberToggle()<cr> 
 
-"autocmd InsertEnter * :set number
-"autocmd InsertLeave * :set relativenumber
+autocmd InsertEnter * :set number
+autocmd InsertLeave * :set relativenumber
+
+if &diff
+    colorscheme greens
+endif
+au FilterWritePre * if &diff | colorscheme greens | endif
+
+" Plug-in Gitgutter setting
+let g:gitgutter_eager = 0
+
+" Plug-in CtrlP settings
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc     " MacOSX/Linux
+let g:ctrlp_custom_ignore = '\v[\/]\.(pyc|git|hg|svn)$'
+
+
